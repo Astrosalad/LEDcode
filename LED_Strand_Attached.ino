@@ -39,19 +39,6 @@ uint8_t clockPin = 3;    // Green wire on Adafruit Pixels
 // Set the first variable to the NUMBER of pixels. 25 = 25 pixels in a row
 Adafruit_WS2801 strip = Adafruit_WS2801(24, dataPin, clockPin);
 
-// Optional: leave off pin numbers to use hardware SPI
-// (pinout is then specific to each board and can't be changed)
-//Adafruit_WS2801 strip = Adafruit_WS2801(25);
-
-// For 36mm LED pixels: these pixels internally represent color in a
-// different format.  Either of the above constructors can accept an
-// optional extra parameter: WS2801_RGB is 'conventional' RGB order
-// WS2801_GRB is the GRB order required by the 36mm pixels.  Other
-// than this parameter, your code does not need to do anything different;
-// the library will handle the format change.  Examples:
-//Adafruit_WS2801 strip = Adafruit_WS2801(25, dataPin, clockPin, WS2801_GRB);
-//Adafruit_WS2801 strip = Adafruit_WS2801(25, WS2801_GRB);
-
 void setup() {
 #if defined(__AVR_ATtiny85__) && (F_CPU == 16000000L)
   clock_prescale_set(clock_div_1); // Enable 16 MHz on Trinket
@@ -65,18 +52,22 @@ void setup() {
 
 
 void loop() {
-  // Some example procedures showing how to display to the pixels
+  void (*ptr[10])();
   
-  LightPattern1();
-  LightPattern2();
-  LightPattern3();
-  LightPattern4();
-  LightPattern5();
-  LightPattern6();
-  LightPattern7();
-  LightPattern8();
-  LightPattern9();
-  LightPattern0();
+  ptr[0] = LightPattern0;
+  ptr[1] = LightPattern1;
+  ptr[2] = LightPattern2;
+  ptr[3] = LightPattern3;
+  ptr[4] = LightPattern4;
+  ptr[5] = LightPattern5;
+  ptr[6] = LightPattern6;
+  ptr[7] = LightPattern7;
+  ptr[8] = LightPattern8;
+  ptr[9] = LightPattern9;
+  
+  for (int i=0; i<10; i++){
+    (*ptr[i])();
+  }
 }
 
 void topStripLight(uint32_t c, uint8_t wait){
@@ -152,6 +143,8 @@ void topRightStripLight(uint32_t c, uint8_t wait){
 void LightPattern1(){
   topRightStripLight(Color(255, 0, 0), 0);
   bottomRightStripLight(Color(255, 0, 0), 0);
+  delay(1000);
+  stripReset();
 }
 
 void LightPattern2(){
@@ -160,6 +153,8 @@ void LightPattern2(){
   bottomStripLight(Color(0, 255, 0), 0);
   topRightStripLight(Color(0, 255, 0), 0);
   bottomLeftStripLight(Color(0, 255, 0), 0);
+  delay(1000);
+  stripReset();
 }
 
 void LightPattern3(){
@@ -168,6 +163,8 @@ void LightPattern3(){
   topStripLight(Color(0, 0, 255), 0);
   middleStripLight(Color(0, 0, 255), 0);
   bottomStripLight(Color(0, 0, 255), 0);
+  delay(1000);
+  stripReset();
 }
 
 void LightPattern4(){
@@ -175,6 +172,8 @@ void LightPattern4(){
   topLeftStripLight(Color(255, 0, 255), 0);
   topRightStripLight(Color(255, 0, 255), 0);
   bottomRightStripLight(Color(255, 0, 255), 0);
+  delay(1000);
+  stripReset();
 }
 
 void LightPattern5(){
@@ -183,6 +182,8 @@ void LightPattern5(){
   bottomStripLight(Color(255, 0, 0), 0);
   topLeftStripLight(Color(255, 0, 0), 0);
   bottomRightStripLight(Color(255, 0, 0), 0);
+  delay(1000);
+  stripReset();
 }
 
 void LightPattern6(){
@@ -192,12 +193,16 @@ void LightPattern6(){
   topLeftStripLight(Color(0, 255, 0), 0);
   bottomLeftStripLight(Color(0, 255, 0), 0);
   bottomRightStripLight(Color(0, 255, 0), 0);
+  delay(1000);
+  stripReset();
 }
 
 void LightPattern7(){
   topStripLight(Color(0, 0, 255), 0);
   topRightStripLight(Color(0, 0, 255), 0);
   bottomRightStripLight(Color(0, 0, 255), 0);
+  delay(1000);
+  stripReset();
 }
 
 void LightPattern8(){
@@ -208,6 +213,8 @@ void LightPattern8(){
   bottomLeftStripLight(Color(255, 0, 255), 0);
   topRightStripLight(Color(255, 0, 255), 0);
   bottomRightStripLight(Color(255, 0, 255), 0);
+  delay(1000);
+  stripReset();
 }
 
 void LightPattern9(){
@@ -216,6 +223,8 @@ void LightPattern9(){
   topLeftStripLight(Color(255, 0, 0), 0);
   topRightStripLight(Color(255, 0, 0), 0);
   bottomRightStripLight(Color(255, 0, 0), 0);
+  delay(1000);
+  stripReset();
 }
 
 void LightPattern0(){
@@ -225,6 +234,15 @@ void LightPattern0(){
   topRightStripLight(Color(0, 255, 0), 0);
   bottomLeftStripLight(Color(0, 255, 0), 0);
   bottomRightStripLight(Color(0, 255, 0), 0);
+  delay(1000);
+  stripReset();
+}
+
+void stripReset(){
+  for(int i=0; i<32; i++){
+    strip.setPixelColor(i, Color(0,0,0));
+    strip.show();
+  }
 }
 
 /* Helper functions */
