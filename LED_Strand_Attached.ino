@@ -43,10 +43,7 @@ void setup() {
 #if defined(__AVR_ATtiny85__) && (F_CPU == 16000000L)
   clock_prescale_set(clock_div_1); // Enable 16 MHz on Trinket
 #endif
-
   strip.begin();
-
-  // Update LED contents, to start they are all 'off'
   strip.show();
 }
 
