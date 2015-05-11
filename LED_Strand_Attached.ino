@@ -71,9 +71,7 @@ void loop() {
 }
 
 void topStripLight(uint32_t c, uint8_t wait){
-  int i;
-  
-  for (i=0; i<3; i++) {
+  for (int i=0; i<3; i++) {
     strip.setPixelColor(i, c);
     strip.show();
     delay(wait);
@@ -81,9 +79,7 @@ void topStripLight(uint32_t c, uint8_t wait){
 }
 
 void topLeftStripLight(uint32_t c, uint8_t wait){
-  int i;
-  
-  for (i=3; i<6; i++) {
+  for (int i=3; i<6; i++) {
     strip.setPixelColor(i, c);
     strip.show();
     delay(wait);
@@ -91,9 +87,7 @@ void topLeftStripLight(uint32_t c, uint8_t wait){
 }
 
 void bottomLeftStripLight(uint32_t c, uint8_t wait){
-  int i;
-  
-  for (i=6; i<9; i++) {
+  for (int i=6; i<9; i++) {
     strip.setPixelColor(i, c);
     strip.show();
     delay(wait);
@@ -101,9 +95,7 @@ void bottomLeftStripLight(uint32_t c, uint8_t wait){
 }
 
 void bottomStripLight(uint32_t c, uint8_t wait){
-  int i;
-  
-  for (i=9; i<12; i++) {
+  for (int i=9; i<12; i++) {
     strip.setPixelColor(i, c);
     strip.show();
     delay(wait);
@@ -111,9 +103,7 @@ void bottomStripLight(uint32_t c, uint8_t wait){
 }
 
 void bottomRightStripLight(uint32_t c, uint8_t wait){
-  int i;
-  
-  for (i=12; i<15; i++) {
+  for (int i=12; i<15; i++) {
     strip.setPixelColor(i, c);
     strip.show();
     delay(wait);
@@ -121,9 +111,7 @@ void bottomRightStripLight(uint32_t c, uint8_t wait){
 }
 
 void middleStripLight(uint32_t c, uint8_t wait){
-  int i;
-  
-  for (i=15; i<18; i++) {
+  for (int i=15; i<18; i++) {
     strip.setPixelColor(i, c);
     strip.show();
     delay(wait);
@@ -131,9 +119,7 @@ void middleStripLight(uint32_t c, uint8_t wait){
 }
 
 void topRightStripLight(uint32_t c, uint8_t wait){
-  int i;
-  
-  for (i=18; i<21; i++) {
+  for (int i=18; i<21; i++) {
     strip.setPixelColor(i, c);
     strip.show();
     delay(wait);
