@@ -68,14 +68,6 @@ void loop() {
 }
 
 void topStripLight(uint32_t c, uint8_t wait){
-  for (int i=0; i<3; i++) {
-    strip.setPixelColor(i, c);
-    strip.show();
-    delay(wait);
-  }
-}
-
-void topLeftStripLight(uint32_t c, uint8_t wait){
   for (int i=3; i<6; i++) {
     strip.setPixelColor(i, c);
     strip.show();
@@ -83,7 +75,7 @@ void topLeftStripLight(uint32_t c, uint8_t wait){
   }
 }
 
-void bottomLeftStripLight(uint32_t c, uint8_t wait){
+void topLeftStripLight(uint32_t c, uint8_t wait){
   for (int i=6; i<9; i++) {
     strip.setPixelColor(i, c);
     strip.show();
@@ -91,7 +83,7 @@ void bottomLeftStripLight(uint32_t c, uint8_t wait){
   }
 }
 
-void bottomStripLight(uint32_t c, uint8_t wait){
+void bottomLeftStripLight(uint32_t c, uint8_t wait){
   for (int i=9; i<12; i++) {
     strip.setPixelColor(i, c);
     strip.show();
@@ -99,7 +91,7 @@ void bottomStripLight(uint32_t c, uint8_t wait){
   }
 }
 
-void bottomRightStripLight(uint32_t c, uint8_t wait){
+void bottomStripLight(uint32_t c, uint8_t wait){
   for (int i=12; i<15; i++) {
     strip.setPixelColor(i, c);
     strip.show();
@@ -107,7 +99,7 @@ void bottomRightStripLight(uint32_t c, uint8_t wait){
   }
 }
 
-void middleStripLight(uint32_t c, uint8_t wait){
+void bottomRightStripLight(uint32_t c, uint8_t wait){
   for (int i=15; i<18; i++) {
     strip.setPixelColor(i, c);
     strip.show();
@@ -115,8 +107,16 @@ void middleStripLight(uint32_t c, uint8_t wait){
   }
 }
 
-void topRightStripLight(uint32_t c, uint8_t wait){
+void middleStripLight(uint32_t c, uint8_t wait){
   for (int i=18; i<21; i++) {
+    strip.setPixelColor(i, c);
+    strip.show();
+    delay(wait);
+  }
+}
+
+void topRightStripLight(uint32_t c, uint8_t wait){
+  for (int i=0; i<3; i++) {
     strip.setPixelColor(i, c);
     strip.show();
     delay(wait);
@@ -206,6 +206,7 @@ void LightPattern9(){
   topLeftStripLight(Color(255, 0, 0), 0);
   topRightStripLight(Color(255, 0, 0), 0);
   bottomRightStripLight(Color(255, 0, 0), 0);
+  bottomStripLight(Color(255, 0, 0), 0);
   delay(1000);
   stripReset();
 }
