@@ -29,6 +29,8 @@ Example sketch for driving Adafruit WS2801 pixels!
 const int pingPin = 7;
 long cm = 0;
 int score = 0;
+long prevMeasure = 0;
+long curMeasure = 0;
 // Choose which 2 pins you will use for output.
 // Can be any valid output pins.
 // The colors of the wires may be totally different so
@@ -55,11 +57,9 @@ void setup() {
 
 void loop() {
   
+  prevMeasure = curMeasure;
   ultrasonic();
-  long measure1 = cm;
-  delay(100);
-  ultrasonic();
-  long measure2 = cm;
+  curMeasure = cm;
   
   void (*ptr[10])();
   
@@ -74,13 +74,14 @@ void loop() {
   ptr[8] = LightPattern8;
   ptr[9] = LightPattern9;
   
-  if(measure1 > 10 && measure2 < 10){
+  if(prevMeasure > 10 && curMeasure < 10){
     score = score + 1;
+    stripReset();
     if(score > 9){
-      score  = 0;
+      score = 0;
     }
   }
-  ptr[score];
+  (*ptr[score])();
 }
 
 void topStripLight(uint32_t c, uint8_t wait){
@@ -142,8 +143,6 @@ void topRightStripLight(uint32_t c, uint8_t wait){
 void LightPattern1(){
   topRightStripLight(Color(255, 0, 0), 0);
   bottomRightStripLight(Color(255, 0, 0), 0);
-  delay(1000);
-  stripReset();
 }
 
 void LightPattern2(){
@@ -152,8 +151,6 @@ void LightPattern2(){
   bottomStripLight(Color(0, 255, 0), 0);
   topRightStripLight(Color(0, 255, 0), 0);
   bottomLeftStripLight(Color(0, 255, 0), 0);
-  delay(1000);
-  stripReset();
 }
 
 void LightPattern3(){
@@ -162,8 +159,6 @@ void LightPattern3(){
   topStripLight(Color(0, 0, 255), 0);
   middleStripLight(Color(0, 0, 255), 0);
   bottomStripLight(Color(0, 0, 255), 0);
-  delay(1000);
-  stripReset();
 }
 
 void LightPattern4(){
@@ -171,8 +166,6 @@ void LightPattern4(){
   topLeftStripLight(Color(255, 0, 255), 0);
   topRightStripLight(Color(255, 0, 255), 0);
   bottomRightStripLight(Color(255, 0, 255), 0);
-  delay(1000);
-  stripReset();
 }
 
 void LightPattern5(){
@@ -181,8 +174,6 @@ void LightPattern5(){
   bottomStripLight(Color(255, 0, 0), 0);
   topLeftStripLight(Color(255, 0, 0), 0);
   bottomRightStripLight(Color(255, 0, 0), 0);
-  delay(1000);
-  stripReset();
 }
 
 void LightPattern6(){
@@ -192,16 +183,12 @@ void LightPattern6(){
   topLeftStripLight(Color(0, 255, 0), 0);
   bottomLeftStripLight(Color(0, 255, 0), 0);
   bottomRightStripLight(Color(0, 255, 0), 0);
-  delay(1000);
-  stripReset();
 }
 
 void LightPattern7(){
   topStripLight(Color(0, 0, 255), 0);
   topRightStripLight(Color(0, 0, 255), 0);
   bottomRightStripLight(Color(0, 0, 255), 0);
-  delay(1000);
-  stripReset();
 }
 
 void LightPattern8(){
@@ -212,8 +199,6 @@ void LightPattern8(){
   bottomLeftStripLight(Color(255, 0, 255), 0);
   topRightStripLight(Color(255, 0, 255), 0);
   bottomRightStripLight(Color(255, 0, 255), 0);
-  delay(1000);
-  stripReset();
 }
 
 void LightPattern9(){
@@ -223,8 +208,6 @@ void LightPattern9(){
   topRightStripLight(Color(255, 0, 0), 0);
   bottomRightStripLight(Color(255, 0, 0), 0);
   bottomStripLight(Color(255, 0, 0), 0);
-  delay(1000);
-  stripReset();
 }
 
 void LightPattern0(){
@@ -234,8 +217,6 @@ void LightPattern0(){
   topRightStripLight(Color(0, 255, 0), 0);
   bottomLeftStripLight(Color(0, 255, 0), 0);
   bottomRightStripLight(Color(0, 255, 0), 0);
-  delay(1000);
-  stripReset();
 }
 
 void stripReset(){
@@ -267,6 +248,10 @@ void ultrasonic(){
        The ping travels out and back, so to find the distance of the
        object we take half of the distance travelled.*/
     cm = duration / 29 / 2;
+    
+    Serial.print(cm);
+    Serial.print("cm");
+    Serial.println();
 
   }
 
